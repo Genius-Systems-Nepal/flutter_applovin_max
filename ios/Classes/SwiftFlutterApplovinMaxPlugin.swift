@@ -17,6 +17,8 @@ public class SwiftFlutterApplovinMaxPlugin: NSObject, FlutterPlugin {
     ALSdk.shared()!.initializeSdk(completionHandler: { configuration in
       // AppLovin SDK is initialized, start loading ads now or later if ad gate is reached
     })
+      
+    bannerAdPluginSetup(registrar: registrar)
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -63,4 +65,11 @@ public class SwiftFlutterApplovinMaxPlugin: NSObject, FlutterPlugin {
       result(FlutterMethodNotImplemented)
     }
   }
+    
+    static func bannerAdPluginSetup(registrar: FlutterPluginRegistrar) {
+        let factory = NativeViewBannerAdsFactory(messenger: registrar.messenger())
+        registrar.register(
+            factory,
+            withId: "/Banner")
+    }
 }
